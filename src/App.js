@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CounterGroup from './Components/CounterGroup.js';
 
 class App extends Component {
-  state = {number:0}
-  addValue = ()=>{this.setState({number:this.state.number+1})}
-  minorValue = ()=>{this.setState({number:this.state.number-1})}
+  state = {
+    size: this.props.size,
+    numberArray: new Array(this.props.size).fill(0)
+  }
+
+    addValue = ()=>{
+      var updatedNumber = this.state.size+1;
+      this.setState({
+        size:updatedNumber,
+      })
+      
+      this.setState({
+        numberArray: new Array(updatedNumber).fill(0)})
+    }
+    minorValue = ()=>{
+      var updatedNumber = this.state.size-1;
+      this.setState({
+        size:updatedNumber,
+      })
+      this.setState({
+        numberArray: new Array(updatedNumber).fill(0)})
+    }
+
   render() {
     return (
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <p>
-      //       Edit <code>src/App.js</code> and save to reload.
-      //     </p>
-      //     <a
-      //       className="App-link"
-      //       href="https://reactjs.org"
-      //       target="_blank"
-      //       rel="noopener noreferrer"
-      //     >
-      //       Learn React
-      //     </a>
-      //   </header>
-      // </div>
         <div>
-        <button onClick={this.addValue}>+</button> 
-        {this.state.number}
-        <button onClick={this.minorValue}>-</button> 
+            <button onClick={this.addValue}>+</button> 
+            <span>Size: {this.state.size}</span>
+            <button onClick={this.minorValue}>-</button>
+            {this.state.numberArray.map(() => (<CounterGroup/>))} 
         </div>
+        
     );
   }
 }
